@@ -1,6 +1,6 @@
 from flask import Flask
 from dotenv import load_dotenv
-from api.extenctions import db
+from app.extenctions import db
 import os
 
 def start_app():
