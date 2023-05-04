@@ -17,6 +17,10 @@ def start_app():
 
     db.init_app(app)
 
+    from app.controllers import api
+
+    app.register_blueprint(api, url_prefix="/user")
+
     return app
 
 app = start_app()
