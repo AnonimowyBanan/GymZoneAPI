@@ -1,8 +1,7 @@
-from flask import jsonify, request, make_response
-from flask_sqlalchemy import SQLAlchemy
-from . import api
-from ..models.User import User
-from app.extenctions import db
+from flask              import jsonify, request, make_response
+from .                  import api
+from ..models.User      import User
+from app.extenctions    import db
 
 @api.route('/get-all', methods=['GET'])
 def get_all_users():
@@ -63,8 +62,31 @@ def edit_user():
      
     return 'xd'
 
-@api.route('/add', methods=['PUT'])
+@api.route('/add', methods=['POST'])
 def add_user():
+    
+    user = User()
+
+    try:
+        user.email                      = request.form.get('email')
+        user.login                      = request.form.get('login')
+        user.password                   = request.form.get('password')
+        user.first_name                 = request.form.get('first_name')
+        user.last_name                  = request.form.get('last_name')
+        user.sex                        = request.form.get('sex')
+        user.user_picture_file_name     = request.form.get('user_picture_file_name')
+        user.user_description           = request.form.get('user_description')
+        user.birthday                   = request.form.get('birthday')
+
+        db.session.add(user)
+        db.session.commit()
+
+        return make_response({'response': 'OK'}, 200)
+    
+    except Exception as e:
+
+        return make_response({'error': str(e)}, 500)
+
      
     return 'xd'
 
