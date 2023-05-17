@@ -23,7 +23,6 @@ def get_all_users():
 
         return make_response({'error': str(e)}, 500)
 
-
 @api.route('/get', methods=['GET'])
 def get_user_data():
 
@@ -53,7 +52,7 @@ def delete_user():
             db.session.delete(user_to_delete)
             db.session.commit()
 
-            return make_response(200)
+            return make_response({'response': 'OK'}, 200)
 
     except Exception as e:
 
@@ -83,5 +82,6 @@ def put_user_data_to_json(data):
                     'birthday'                  : data.birthday,
                     'register_timestamp'        : data.register_timestamp
                 }
+     
      return result
      
