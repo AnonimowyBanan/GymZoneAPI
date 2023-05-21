@@ -1,9 +1,9 @@
 from flask              import jsonify, request, make_response
-from .                  import api
+from .                  import user
 from ..models.User      import User
 from app.extenctions    import db
 
-@api.route('/get-all', methods=['GET'])
+@user.route('/get-all', methods=['GET'])
 def get_all_users():
     result = []
 
@@ -22,7 +22,7 @@ def get_all_users():
 
         return make_response({'error': str(e)}, 500)
 
-@api.route('/get', methods=['GET'])
+@user.route('/get', methods=['GET'])
 def get_user_data():
 
     try:
@@ -38,7 +38,7 @@ def get_user_data():
 
         return make_response({'error': str(e)}, 500)
 
-@api.route('/delete', methods=['DELETE'])
+@user.route('/delete', methods=['DELETE'])
 def delete_user():
 
     try:
@@ -57,7 +57,7 @@ def delete_user():
 
         return make_response({'error': str(e)}, 500)
 
-@api.route('/edit', methods=['PUT', 'POST'])
+@user.route('/edit', methods=['PUT', 'POST'])
 def edit_user():
     
     user_to_edit = User.query.filter_by(id=request.form.get('user_ID')).first()
@@ -83,7 +83,7 @@ def edit_user():
 
         return make_response({'error': str(e)}, 500)
 
-@api.route('/add', methods=['POST'])
+@user.route('/add', methods=['POST'])
 def add_user():
     
     user = User()
