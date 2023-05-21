@@ -17,9 +17,10 @@ def start_app():
 
     db.init_app(app)
 
-    from app.controllers import user
+    from app.controllers import user, exercise
 
     app.register_blueprint(user, url_prefix="/user")
+    app.register_blueprint(exercise, url_prefix="/exercise")
 
     return app
 
