@@ -60,7 +60,27 @@ def delete_user():
 @api.route('/edit', methods=['PUT'])
 def edit_user():
      
-    return 'xd'
+    user_to_edit = User.query.filter_by(id=request.args.get('user_ID')).first()
+
+    try:
+        user_to_edit.email                      = request.form.get('email')
+        user_to_edit.login                      = request.form.get('login')
+        user_to_edit.password                   = request.form.get('password')
+        user_to_edit.first_name                 = request.form.get('first_name')
+        user_to_edit.last_name                  = request.form.get('last_name')
+        user_to_edit.sex                        = request.form.get('sex')
+        user_to_edit.user_picture_file_name     = request.form.get('user_picture_file_name')
+        user_to_edit.user_description           = request.form.get('user_description')
+        user_to_edit.birthday                   = request.form.get('birthday')
+
+        db.session.add(user_to_edit)
+        db.session.commit()
+
+        return make_response({'response': 'OK'}, 200)
+    
+    except Exception as e:
+
+        return make_response({'error': str(e)}, 500)
 
 @api.route('/add', methods=['POST'])
 def add_user():
@@ -86,9 +106,6 @@ def add_user():
     except Exception as e:
 
         return make_response({'error': str(e)}, 500)
-
-     
-    return 'xd'
 
 def put_user_data_to_json(data):
      result = {
