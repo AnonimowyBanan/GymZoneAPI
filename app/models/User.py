@@ -1,5 +1,4 @@
 from app.extenctions import db
-from.Dictionary import Dictionary
 
 class User(db.Model):
 
