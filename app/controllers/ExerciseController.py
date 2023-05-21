@@ -29,7 +29,7 @@ def get_exercise_data():
     try:
         exercise = Exercise.query.filter_by(id=request.form.get('exercise_ID')).first()
 
-        if exercise == None:
+        if exercise is None:
             return make_response({'error': 'exercise not found'}, 204)
         
         result = put_exercise_data_to_json(exercise)
@@ -38,6 +38,26 @@ def get_exercise_data():
     
     except Exception as e:
      
+        return make_response({'error': str(e)}, 500)
+
+@exercise.route('/delete', methods=['DELETE'])
+def delete_exercise():
+
+    try:
+        exercise_to_delete = Exercise.query.filter_by(id=request.form.get('exercise_ID')).first()
+
+        if exercise_to_delete is None:
+
+            return make_response({'error': 'user not found'}, 204)
+        
+        else:
+            db.session.delete(exercise_to_delete)
+            db.session.commit()
+
+            return make_response({'response': 'OK'}, 200)
+        
+    except Exception as e:
+        
         return make_response({'error': str(e)}, 500)
 
 def put_exercise_data_to_json(data):

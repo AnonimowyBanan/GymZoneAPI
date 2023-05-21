@@ -28,7 +28,7 @@ def get_user_data():
     try:
         user = User.query.filter_by(id=int(request.args.get('user_ID'))).first()
 
-        if user == None:
+        if user is None:
 
             return make_response({'error': 'user not found'}, 204)
 
