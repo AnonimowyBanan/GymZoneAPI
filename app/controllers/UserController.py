@@ -57,21 +57,22 @@ def delete_user():
 
         return make_response({'error': str(e)}, 500)
 
-@api.route('/edit', methods=['PUT'])
+@api.route('/edit', methods=['PUT', 'POST'])
 def edit_user():
-     
-    user_to_edit = User.query.filter_by(id=request.args.get('user_ID')).first()
+    
+    user_to_edit = User.query.filter_by(id=request.form.get('user_ID')).first()
+
+    user_to_edit.email                      = request.form.get('email')
+    user_to_edit.login                      = request.form.get('login')
+    user_to_edit.password                   = request.form.get('password')
+    user_to_edit.first_name                 = request.form.get('first_name')
+    user_to_edit.last_name                  = request.form.get('last_name')
+    user_to_edit.sex                        = request.form.get('sex')
+    user_to_edit.user_picture_file_name     = request.form.get('user_picture_file_name')
+    user_to_edit.user_description           = request.form.get('user_description')
+    user_to_edit.birthday                   = request.form.get('birthday')
 
     try:
-        user_to_edit.email                      = request.form.get('email')
-        user_to_edit.login                      = request.form.get('login')
-        user_to_edit.password                   = request.form.get('password')
-        user_to_edit.first_name                 = request.form.get('first_name')
-        user_to_edit.last_name                  = request.form.get('last_name')
-        user_to_edit.sex                        = request.form.get('sex')
-        user_to_edit.user_picture_file_name     = request.form.get('user_picture_file_name')
-        user_to_edit.user_description           = request.form.get('user_description')
-        user_to_edit.birthday                   = request.form.get('birthday')
 
         db.session.add(user_to_edit)
         db.session.commit()
@@ -87,17 +88,18 @@ def add_user():
     
     user = User()
 
-    try:
-        user.email                      = request.form.get('email')
-        user.login                      = request.form.get('login')
-        user.password                   = request.form.get('password')
-        user.first_name                 = request.form.get('first_name')
-        user.last_name                  = request.form.get('last_name')
-        user.sex                        = request.form.get('sex')
-        user.user_picture_file_name     = request.form.get('user_picture_file_name')
-        user.user_description           = request.form.get('user_description')
-        user.birthday                   = request.form.get('birthday')
+    user.email                      = request.form.get('email')
+    user.login                      = request.form.get('login')
+    user.password                   = request.form.get('password')
+    user.first_name                 = request.form.get('first_name')
+    user.last_name                  = request.form.get('last_name')
+    user.sex                        = request.form.get('sex')
+    user.user_picture_file_name     = request.form.get('user_picture_file_name')
+    user.user_description           = request.form.get('user_description')
+    user.birthday                   = request.form.get('birthday')
 
+    try:
+    
         db.session.add(user)
         db.session.commit()
 
