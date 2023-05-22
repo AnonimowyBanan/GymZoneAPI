@@ -29,39 +29,35 @@ def get_exercise_data():
     
     exercise_obj = ExerciseCollection()
 
-    try:
-        exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
-        exercise = exercise_obj.get()
+    exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
+    exercise = exercise_obj.get()
 
-        if exercise is None:
-            return make_response({'error': 'exercise not found'}, 204)
-        
-        result = put_exercise_data_to_json(exercise)
-
-        return make_response(jsonify(result), 200)
+    if exercise is None:
+        return make_response({'error': 'exercise not found'}, 204)
     
-    except Exception as e:
-     
-        return make_response({'error': str(e)}, 500)
+    result = put_exercise_data_to_json(exercise)
+
+    return make_response(jsonify(result), 200)
+
 
 @exercise.route('/delete', methods=['DELETE'])
 def delete_exercise():
 
     exercise_obj = ExerciseCollection()
 
+    exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
+    exercise_to_delete = exercise_obj.get()
+
+    if exercise_to_delete is None:
+
+        return make_response({'error': 'user not found'}, 204)
+    
     try:
-        exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
-        exercise_to_delete = exercise_obj.get()
+    
+        db.session.delete(exercise_to_delete)
+        db.session.commit()
 
-        if exercise_to_delete is None:
-
-            return make_response({'error': 'user not found'}, 204)
-        
-        else:
-            db.session.delete(exercise_to_delete)
-            db.session.commit()
-
-            return make_response({'response': 'OK'}, 200)
+        return make_response({'response': 'OK'}, 200)
         
     except Exception as e:
         
@@ -72,7 +68,6 @@ def edit_exercise():
 
     exercise_obj = ExerciseCollection()
 
-    
     exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
     exercise_to_edit = exercise_obj.get()
 
@@ -96,6 +91,24 @@ def edit_exercise():
 
 
 @exercise.route('/add', methods=['POST'])
+def add_exercise():
+
+    exercise_obj = ExerciseCollection()
+
+    exercise_obj.id_muscle      = request.form.get('id_muscle')
+    exercise_obj.name           = request.form.get('name')
+    exercise_obj.description    = request.form.get('description')
+
+    try:
+        db.session.add(exercise_obj)
+        db.session.commit()
+
+        return make_response({'response': 'OK', 'exercise': put_exercise_data_to_json(exercise_obj)}, 200)
+    
+    except Exception as e:
+        
+        return make_response({'error': str(e)}, 500)
+
 
 def put_exercise_data_to_json(data):
 
