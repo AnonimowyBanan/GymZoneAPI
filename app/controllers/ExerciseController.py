@@ -1,8 +1,8 @@
-from flask              import jsonify, request, make_response
-from .                  import exercise
-from ..models.Exercise  import Exercise
-from app.db.ExerciseCollection import ExerciseCollection
-from app.extenctions    import db
+from flask                      import jsonify, request, make_response
+from .                          import exercise
+from ..models.Exercise          import Exercise
+from app.db.ExerciseCollection  import ExerciseCollection
+from app.extenctions            import db
 
 @exercise.route('/get-all', methods=['GET'])
 def get_all_exercises():
@@ -80,8 +80,6 @@ def edit_exercise():
 
             return make_response({'error': 'user not found'}, 204)
         
-
-
     except Exception as e:
 
         return make_response({'error': str(e)}, 500)

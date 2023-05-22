@@ -1,14 +1,16 @@
-from flask              import jsonify, request, make_response
-from .                  import user
-from ..models.User      import User
-from app.extenctions    import db
+from flask                  import jsonify, request, make_response
+from .                      import user
+from ..models.User          import User
+from app.db.UserCollection  import UserCollection
+from app.extenctions        import db
 
 @user.route('/get-all', methods=['GET'])
 def get_all_users():
+
     result = []
 
     try:
-        users = User.query.all()
+        users = UserCollection.all()
 
         if users == None:
             return make_response({'error': 'users not found'}, 204)
@@ -25,8 +27,11 @@ def get_all_users():
 @user.route('/get', methods=['GET'])
 def get_user_data():
 
+    user_obj = UserCollection()
+
     try:
-        user = User.query.filter_by(id=int(request.args.get('user_ID'))).first()
+        user_obj.set_user_id(request.form.get('user_ID'))
+        user = user_obj.get()
 
         if user is None:
 
@@ -41,8 +46,11 @@ def get_user_data():
 @user.route('/delete', methods=['DELETE'])
 def delete_user():
 
+    user_obj = UserCollection()
+
     try:
-        user_to_delete = User.query.filter_by(id=request.args.get('user_ID')).first()
+        user_obj.set_user_id(request.form.get('user_ID'))
+        user_to_delete = user_obj.get()
 
         if user_to_delete is None:
 
@@ -59,8 +67,11 @@ def delete_user():
 
 @user.route('/edit', methods=['PUT', 'POST'])
 def edit_user():
+
+    user_obj = UserCollection()
+    user_obj.set_user_id(request.form.get('user_ID'))
     
-    user_to_edit = User.query.filter_by(id=request.form.get('user_ID')).first()
+    user_to_edit = user_obj.get()
 
     user_to_edit.email                      = request.form.get('email')
     user_to_edit.login                      = request.form.get('login')
@@ -77,7 +88,7 @@ def edit_user():
         db.session.add(user_to_edit)
         db.session.commit()
 
-        return make_response({'response': 'OK'}, 200)
+        return make_response({'response': 'OK', 'user': put_user_data_to_json(user_to_edit)}, 200)
     
     except Exception as e:
 
