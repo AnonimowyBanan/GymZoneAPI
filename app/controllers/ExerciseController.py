@@ -72,13 +72,23 @@ def edit_exercise():
 
     exercise_obj = ExerciseCollection()
 
+    
+    exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
+    exercise_to_edit = exercise_obj.get()
+
+    if exercise_to_edit is None:
+
+        return make_response({'error': 'user not found'}, 204)
+    else:
+        exercise_to_edit.id_muscle      = request.form.get('id_muscle')
+        exercise_to_edit.name           = request.form.get('name')
+        exercise_to_edit.description    = request.form.get('description')
+    
     try:
-        exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
-        exercise_to_edit = exercise_obj.get()
 
-        if exercise_to_edit is None:
+        db.session.commit()
 
-            return make_response({'error': 'user not found'}, 204)
+        return make_response({'response': 'OK', 'exercise': put_exercise_data_to_json(exercise_to_edit)}, 200)
         
     except Exception as e:
 
