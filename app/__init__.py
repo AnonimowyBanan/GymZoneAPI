@@ -17,10 +17,11 @@ def start_app():
 
     db.init_app(app)
 
-    from app.controllers import user, exercise
+    from app.controllers import user, exercise, biometric_data
 
     app.register_blueprint(user, url_prefix="/user")
     app.register_blueprint(exercise, url_prefix="/exercise")
+    app.register_blueprint(biometric_data, url_prefix="/biometric-data")
 
     return app
 

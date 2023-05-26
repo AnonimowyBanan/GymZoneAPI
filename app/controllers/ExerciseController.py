@@ -1,6 +1,5 @@
 from flask                      import jsonify, request, make_response
 from .                          import exercise
-from ..models.Exercise          import Exercise
 from app.db.ExerciseCollection  import ExerciseCollection
 from app.extenctions            import db
 
@@ -9,20 +8,15 @@ def get_all_exercises():
 
     result = []
 
-    try:
-        exercises = ExerciseCollection.all()
+    exercises = ExerciseCollection.all()
 
-        if exercises == None:
-            return make_response({'error': 'exercises not found'}, 204)
-        
-        for exercise in exercises:
-            result.append(put_exercise_data_to_json(exercise))
+    if exercises is None:
+        return make_response({'error': 'exercises not found'}, 204)
+    
+    for exercise in exercises:
+        result.append(put_exercise_data_to_json(exercise))
 
-        return make_response(jsonify(result), 200)
-
-    except Exception as e:
-
-            return make_response({'error': str(e)}, 500)
+    return make_response(jsonify(result), 200)
 
 @exercise.route('/get', methods=['GET'])
 def get_exercise_data():
@@ -106,7 +100,7 @@ def add_exercise():
         return make_response({'response': 'OK', 'exercise': put_exercise_data_to_json(exercise_obj)}, 200)
     
     except Exception as e:
-        
+
         return make_response({'error': str(e)}, 500)
 
 
