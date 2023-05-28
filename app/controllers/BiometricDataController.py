@@ -51,7 +51,49 @@ def delete_biometric_data():
 
         return make_response({'error': str(e)}, 500)
         
-# @biometric_data.route('/edit', methods=['PUT', 'POST'])
+@biometric_data.route('/edit', methods=['PUT', 'POST'])
+def edit_biometric_data():
+
+    biometric_data_obj  = BiometricData_collection()
+    biometric_data_obj.set_biometric_data_id(request.form.get('age'))
+
+    edit_biometric_data = biometric_data_obj.get()
+
+    edit_biometric_data.age     = request.form.get('age')
+    edit_biometric_data.height  = request.form.get('height')
+    edit_biometric_data.weight  = request.form.get('weight')
+
+    biometric_score_obj = BiometricScore_collection()
+    biometric_score_obj.set_id_biometric_data(request.form.get('biometric_data_ID'))
+    edit_biometric_score = biometric_score_obj.get()
+
+    user_obj            = User_collection()
+
+    user_obj.set_user_id(request.form.get('user_ID'))
+    gender = user_obj.get().gender
+
+    age                 = request.form.get('age')
+    height              = request.form.get('height')
+    weight              = request.form.get('weight')
+
+    biometric_calc_obj = BiometricData(age, height, weight, gender)
+
+    edit_biometric_score.BMI                 = biometric_calc_obj.calculate_BMI()
+    edit_biometric_score.BMR                 = biometric_calc_obj.calculate_BMR()
+    edit_biometric_score.PBF                 = biometric_calc_obj.calculate_PBF()
+    edit_biometric_score.fit_score           = biometric_calc_obj.calculate_fit_score()
+
+    try:
+        db.session.commit()
+
+        return make_response({'response': 'OK', 'biometric_data': put_biometric_datas_to_json(edit_biometric_data)}, 200)
+    
+    except Exception as e:
+        db.session.rollback()
+
+        return make_response({'error': str(e)}, 500)
+
+
 @biometric_data.route('/add', methods=['POST'])
 def add_biometric_data():
 
