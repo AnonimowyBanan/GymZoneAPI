@@ -34,9 +34,23 @@ def get_biometric_data():
     else:
         return make_response(put_biometric_datas_to_json(biometric_data))
 
+@biometric_data.route('/delete', methods=['DELETE'])
+def delete_biometric_data():
+    biometric_data_obj = BiometricData_collection()
 
+    biometric_data_obj.set_biometric_data_id(request.form.get('biometric_data_ID'))
+    biometric_data_to_delete = biometric_data_obj.get()
 
-# @biometric_data.route('/delete', methods=['DELETE'])
+    try:
+        db.session.delete(biometric_data_to_delete)
+        db.session.commit()
+
+        return make_response({'response': 'OK'}, 200)
+
+    except Exception as e:
+
+        return make_response({'error': str(e)}, 500)
+        
 # @biometric_data.route('/edit', methods=['PUT', 'POST'])
 @biometric_data.route('/add', methods=['POST'])
 def add_biometric_data():
