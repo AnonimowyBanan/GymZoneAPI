@@ -1,6 +1,6 @@
 from ..models.Exercise import Exercise
 
-class ExerciseCollection(Exercise):
+class Exercise_collection(Exercise):
 
     def __init__(self, exercise_ID=0):
         self._exercise_ID = exercise_ID

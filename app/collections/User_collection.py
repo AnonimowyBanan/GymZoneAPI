@@ -1,6 +1,6 @@
 from app.models.User import User
 
-class UserCollection(User):
+class User_collection(User):
 
     def __init__(self, user_ID=0):
         self._user_ID = user_ID

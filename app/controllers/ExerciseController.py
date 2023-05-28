@@ -1,6 +1,6 @@
 from flask                      import jsonify, request, make_response
 from .                          import exercise
-from app.db.ExerciseCollection  import ExerciseCollection
+from app.collections.Exercise_collection  import Exercise_collection
 from app.extenctions            import db
 
 @exercise.route('/get-all', methods=['GET'])
@@ -8,7 +8,7 @@ def get_all_exercises():
 
     result = []
 
-    exercises = ExerciseCollection.all()
+    exercises = Exercise_collection.all()
 
     if exercises is None:
         return make_response({'error': 'exercises not found'}, 204)
@@ -21,7 +21,7 @@ def get_all_exercises():
 @exercise.route('/get', methods=['GET'])
 def get_exercise_data():
     
-    exercise_obj = ExerciseCollection()
+    exercise_obj = Exercise_collection()
 
     exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
     exercise = exercise_obj.get()
@@ -37,7 +37,7 @@ def get_exercise_data():
 @exercise.route('/delete', methods=['DELETE'])
 def delete_exercise():
 
-    exercise_obj = ExerciseCollection()
+    exercise_obj = Exercise_collection()
 
     exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
     exercise_to_delete = exercise_obj.get()
@@ -60,7 +60,7 @@ def delete_exercise():
 @exercise.route('/edit', methods=['PUT', 'POST'])
 def edit_exercise():
 
-    exercise_obj = ExerciseCollection()
+    exercise_obj = Exercise_collection()
 
     exercise_obj.set_exercise_id(request.form.get('exercise_ID'))
     exercise_to_edit = exercise_obj.get()
@@ -87,7 +87,7 @@ def edit_exercise():
 @exercise.route('/add', methods=['POST'])
 def add_exercise():
 
-    exercise_obj = ExerciseCollection()
+    exercise_obj = Exercise_collection()
 
     exercise_obj.id_muscle      = request.form.get('id_muscle')
     exercise_obj.name           = request.form.get('name')

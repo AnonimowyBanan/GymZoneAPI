@@ -1,6 +1,6 @@
 from ..models.BiometricData import BiometricData
 
-class BiometricDataCollection(BiometricData):
+class BiometricData_collection(BiometricData):
 
     def __init__(self, biometric_data_ID=0):
         self._biometric_data_ID = biometric_data_ID

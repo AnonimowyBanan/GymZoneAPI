@@ -1,7 +1,7 @@
 from flask                  import jsonify, request, make_response
 from .                      import user
 from ..models.User          import User
-from app.db.UserCollection  import UserCollection
+from app.collections.User_collection  import User_collection
 from app.extenctions        import db
 
 @user.route('/get-all', methods=['GET'])
@@ -10,7 +10,7 @@ def get_all_users():
     result = []
 
     try:
-        users = UserCollection.all()
+        users = User_collection.all()
 
         if users == None:
             return make_response({'error': 'users not found'}, 204)
@@ -27,7 +27,7 @@ def get_all_users():
 @user.route('/get', methods=['GET'])
 def get_user_data():
 
-    user_obj = UserCollection()
+    user_obj = User_collection()
 
     try:
         user_obj.set_user_id(request.form.get('user_ID'))
@@ -46,7 +46,7 @@ def get_user_data():
 @user.route('/delete', methods=['DELETE'])
 def delete_user():
 
-    user_obj = UserCollection()
+    user_obj = User_collection()
 
     try:
         user_obj.set_user_id(request.form.get('user_ID'))
@@ -68,7 +68,7 @@ def delete_user():
 @user.route('/edit', methods=['PUT', 'POST'])
 def edit_user():
 
-    user_obj = UserCollection()
+    user_obj = User_collection()
     user_obj.set_user_id(request.form.get('user_ID'))
     
     user_to_edit = user_obj.get()

@@ -10,7 +10,7 @@ class User(db.Model):
     password                    = db.Column(db.String(45), nullable=False)
     first_name                  = db.Column(db.String(45), nullable=True)
     last_name                   = db.Column(db.String(45), nullable=True)
-    sex                         = db.Column(db.String(45), nullable=False)
+    gender                      = db.Column(db.String(45), nullable=False)
     user_picture_file_name      = db.Column(db.String(128), nullable=True)
     user_description            = db.Column(db.String(256), nullable=True)
     birthday                    = db.Column(db.Date, nullable=True)
