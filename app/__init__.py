@@ -1,6 +1,7 @@
 from flask import Flask
 from dotenv import load_dotenv
 from app.extenctions import db
+from flask_restful import Api
 import os
 
 def start_app():
@@ -16,6 +17,7 @@ def start_app():
     )
 
     db.init_app(app)
+    api = Api(app)
 
     from app.controllers import user, exercise, biometric_data
 
