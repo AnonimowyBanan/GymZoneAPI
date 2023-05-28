@@ -30,6 +30,8 @@ class BiometricData:
 
         bmi = self._weight / (self._height_m**2)
 
+        self._bmi = bmi
+
         return round(bmi, 2)
 
     """
@@ -86,14 +88,14 @@ class BiometricData:
         Returns:
             float: FFM score.
     """
-    def calculate_FFM(self):
+    # def calculate_FFM(self):
 
-        brm = BiometricData.calculate_BMR()
+    #     brm = BiometricData.calculate_BMR()
 
         
-        ffm = self._weight - (self._weight * )
+    #     ffm = self._weight - (self._weight * )
 
-        return round(ffm, 2)
+    #     return round(ffm, 2)
 
 
     def calculate_fit_score(self):

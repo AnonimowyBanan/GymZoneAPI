@@ -9,5 +9,7 @@ class BiometricScore(db.Model):
     BMI                     = db.Column(db.Double, nullable=False)
     BMR                     = db.Column(db.Double, nullable=False)
     PBF                     = db.Column(db.Double, nullable=True)
-    FFM                     = db.Column(db.Double, nullable=False)
+    # FFM                     = db.Column(db.Double, nullable=False)
     fit_score               = db.Column(db.Integer, nullable=False)
+
+    

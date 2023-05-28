@@ -11,4 +11,5 @@ class BiometricData(db.Model):
     weight                  = db.Column(db.Double, nullable=False)
     timestamp               = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
 
-    user        = db.relationship('User', backref='trip', cascade="all,delete", lazy=True)
+    user                    = db.relationship('User', backref='BiometricData', cascade="all,delete", lazy=True)
+    biometric_data          = db.relationship('BiometricScore', backref='BiometricData', cascade="all,delete", lazy=True)

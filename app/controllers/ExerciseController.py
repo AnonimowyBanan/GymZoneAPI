@@ -100,6 +100,7 @@ def add_exercise():
         return make_response({'response': 'OK', 'exercise': put_exercise_data_to_json(exercise_obj)}, 200)
     
     except Exception as e:
+        db.session.rollback()
 
         return make_response({'error': str(e)}, 500)
 
