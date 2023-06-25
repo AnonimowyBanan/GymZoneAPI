@@ -1,6 +1,6 @@
 from flask                      import jsonify, request, make_response
 from .                          import exercise
-from app.collections.Exercise_collection  import Exercise_collection
+from app.classes.Exercise_collection  import Exercise_collection
 from app.extenctions            import db
 
 @exercise.route('/get-all', methods=['GET'])

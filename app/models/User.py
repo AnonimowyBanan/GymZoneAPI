@@ -7,7 +7,7 @@ class User(db.Model):
     id                          = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email                       = db.Column(db.String(45), nullable=False)
     login                       = db.Column(db.String(45), nullable=False)
-    password                    = db.Column(db.String(45), nullable=False)
+    password                    = db.Column(db.String(256), nullable=False)
     first_name                  = db.Column(db.String(45), nullable=True)
     last_name                   = db.Column(db.String(45), nullable=True)
     gender                      = db.Column(db.String(45), nullable=False)
