@@ -1,12 +1,14 @@
-from flask                  import jsonify, request, make_response
-from .                      import user
-from ..models.User          import User
-from app.classes.User_collection  import User_collection
-from app.extenctions        import db
-from flask_bcrypt       import generate_password_hash
-from werkzeug.security import check_password_hash 
+from flask                          import jsonify, request, make_response
+from .                              import user
+from ..models.User                  import User
+from app.classes.User_collection    import User_collection
+from app.extenctions                import db
+from flask_bcrypt                   import generate_password_hash
+from werkzeug.security              import check_password_hash 
+from app.fun.api                    import token_required
 
 @user.route('/get-all', methods=['GET'])
+@token_required
 def get_all_users():
 
     result = []
@@ -27,6 +29,7 @@ def get_all_users():
         return make_response({'error': str(e)}, 500)
 
 @user.route('/get', methods=['GET'])
+@token_required
 def get_user_data():
 
     user_obj = User_collection()
@@ -46,6 +49,7 @@ def get_user_data():
         return make_response({'error': str(e)}, 500)
 
 @user.route('/delete', methods=['DELETE'])
+@token_required
 def delete_user():
 
     user_obj = User_collection()
@@ -68,6 +72,7 @@ def delete_user():
         return make_response({'error': str(e)}, 500)
 
 @user.route('/edit', methods=['PUT', 'POST'])
+@token_required
 def edit_user():
 
     user_obj = User_collection()

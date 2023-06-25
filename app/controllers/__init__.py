@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-user            = Blueprint('api',__name__)
+user            = Blueprint('user',__name__)
 exercise        = Blueprint('exercise',__name__)
 biometric_data  = Blueprint('biometric_data', __name__)
 

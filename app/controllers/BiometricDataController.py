@@ -1,8 +1,8 @@
 from flask                                      import jsonify, request, make_response
 from .                                          import biometric_data
-from app.classes.BiometricData_collection   import BiometricData_collection
-from app.classes.BiometricScore_collection  import BiometricScore_collection
-from app.classes.User_collection            import User_collection
+from app.classes.BiometricData_collection       import BiometricData_collection
+from app.classes.BiometricScore_collection      import BiometricScore_collection
+from app.classes.User_collection                import User_collection
 from app.fun.fun_BiometricScores                import BiometricData
 from app.extenctions                            import db
 
