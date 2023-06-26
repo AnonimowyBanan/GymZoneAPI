@@ -19,9 +19,10 @@ def start_app():
     )
 
     db.init_app(app)
+    jwt = JWTManager(app)
     api = Api(app)
 
-    jwt = JWTManager(app)
+
 
     from app.routes import user as user_bp
     from app.routes import exercise as exercise_bp

@@ -2,16 +2,16 @@ from flask import jsonify, request, make_response
 from . import user
 from app.models.User import User
 from app.extenctions import db
-from flask_bcrypt import generate_password_hash
-from werkzeug.security import check_password_hash
+from flask_bcrypt import generate_password_hash, check_password_hash
 from app.utils import token_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 @user.route('/get-all', methods=['GET'])
-@token_required
+@jwt_required()
 def get_all_users():
     result = []
-
+    print(get_jwt_identity())
     try:
         user_obj = User()
         users = user_obj.all()
