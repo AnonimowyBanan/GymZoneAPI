@@ -4,7 +4,7 @@ from app.models.User import User
 from app.extenctions import db
 from flask_bcrypt import generate_password_hash
 from werkzeug.security import check_password_hash
-from app.fun.api import token_required
+from app.utils import token_required
 
 
 @user.route('/get-all', methods=['GET'])

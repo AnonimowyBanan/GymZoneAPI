@@ -2,7 +2,7 @@ from flask import jsonify, request, make_response
 from . import exercise
 from app.models.Exercise import Exercise
 from app.extenctions import db
-from app.fun.api import token_required
+from app.utils import token_required
 
 
 @exercise.route('/get-all', methods=['GET'])

@@ -24,10 +24,10 @@ class User(db.Model):
         self.password = None
         self.login = None
         self.email = None
-        self.user_ID = 0
+        self.id = 0
 
-    def set_id(self, user_ID: int):
-        self.user_ID = user_ID
+    def set_id(self, id: int):
+        self.id = id
 
     def set_email(self, email: str):
         self.email = email
@@ -62,7 +62,7 @@ class User(db.Model):
         return users if users else []
 
     def get(self):
-        user = User.query.filter_by(id=self._user_ID).first()
+        user = User.query.filter_by(id=self.id).first()
 
         return user if user else None
 

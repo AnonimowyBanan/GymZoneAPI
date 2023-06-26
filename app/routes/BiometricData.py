@@ -1,11 +1,7 @@
 from flask import jsonify, request, make_response
-
-# from app.classes.BiometricData_collection import BiometricData_collection
-from app.classes.BiometricScore_collection import BiometricScore_collection
 from app.models.BiometricScore import BiometricScore
-# from app.fun.fun_BiometricScores import BiometricData
 from app.extenctions import db
-from app.fun.api import token_required
+from app.utils import token_required
 from app.models.BiometricData import BiometricData
 from app.models.User import User
 from . import biometric_data
@@ -62,86 +58,57 @@ def delete_biometric_data():
 
         except Exception as e:
 
-            return make_response({'error': str(e)}, 500)
+            return make_response({'response': 'ERROR', 'description': str(e)}, 500)
 
 
 @biometric_data.route('/edit', methods=['PUT', 'POST'])
 @token_required
 def edit_biometric_data():
     biometric_data_obj = BiometricData()
-    user_obj = User()
-
     biometric_data_obj.set_id(int(request.form.get('biometric_data_ID')))
+    biometric_data = biometric_data_obj.get()
 
-    edit_data = biometric_data_obj.get()
+    print(biometric_data)
 
-    if edit_data is None:
+    if biometric_data is None:
         return make_response({'response': 'ERROR', 'description': 'Biometric data not found'}, 204)
 
-    edit_data.age = request.form.get('age')
-    edit_data.height = request.form.get('height')
-    edit_data.weight = request.form.get('weight')
 
-    user_obj.set_id(int(request.form.get('user_ID')))
-    user = user_obj.get()
-
-    biometric_score_obj = BiometricScore(gender=user.gender, height=user.height, weight=user.weight)
-    biometric_score_obj.set_id_biometric_data(int(request.form.get('biometric_data_ID')))
-    edit_biometric_score = biometric_score_obj.get()
-
-
-    try:
-        # db.session.commit()
-
-        return make_response({'response': 'OK', 'biometric_data': put_biometric_datas_to_json(edit_data)},
-                             200)
-
-    except Exception as e:
-        db.session.rollback()
-
-        return make_response({'error': str(e)}, 500)
-
-
-@biometric_data.route('/add', methods=['POST'])
-def add_biometric_data():
-    biometric_data_obj = BiometricData_collection()
-    biometric_score_obj = BiometricScore_collection()
-    user_obj = User()
-
-    user_obj.set_user_id(request.form.get('user_ID'))
-    gender = user_obj.get().gender
-
-    age = request.form.get('age')
-    height = request.form.get('height')
-    weight = request.form.get('weight')
-
-    biometric_data_obj.id_user = request.form.get('user_ID')
-    biometric_data_obj.age = age
-    biometric_data_obj.height = height
-    biometric_data_obj.weight = weight
-
-    db.session.add(biometric_data_obj)
-    db.session.flush()
-
-    biometric_calc_obj = BiometricData(age, height, weight, gender)
-
-    biometric_score_obj.id_biometric_data = biometric_data_obj.id
-    biometric_score_obj.BMI = biometric_calc_obj.calculate_BMI()
-    biometric_score_obj.BMR = biometric_calc_obj.calculate_BMR()
-    biometric_score_obj.PBF = biometric_calc_obj.calculate_PBF()
-    biometric_score_obj.fit_score = biometric_calc_obj.calculate_fit_score()
-
-    db.session.add(biometric_score_obj)
+    biometric_data.age = int(request.form.get('age'))
+    biometric_data.height = float(request.form.get('height'))
+    biometric_data.weight = float(request.form.get('weight'))
 
     try:
         db.session.commit()
 
-        return make_response({'response': 'OK', 'biometric_data': put_biometric_datas_to_json(biometric_data_obj)}, 200)
-
+        return make_response({'response': 'OK', 'biometric_data': put_biometric_datas_to_json(biometric_data)}, 200)
     except Exception as e:
-        db.session.rollback()
+        return make_response({'response': 'OK', 'description': f'{e}'}, 500)
 
-        return make_response({'error': str(e)}, 500)
+
+@biometric_data.route('/add', methods=['POST'])
+@token_required
+def add_biometric_data():
+    biometric_data_object = BiometricData()
+    user_id = request.form.get('user_ID')
+
+    if user_id is None:
+        return make_response({'response': 'ERROR', 'description': 'User not found'}, 204)
+
+    biometric_data_object.set_id_user(int(request.form.get('user_ID')))
+    biometric_data_object.set_age(int(request.form.get('age')))
+    biometric_data_object.set_height(float(request.form.get('height')))
+    biometric_data_object.set_weight(float(request.form.get('weight')))
+
+    db.session.add(biometric_data_object)
+
+    try:
+        db.session.commit()
+
+        return make_response({'response': 'OK', 'biometric_data': 'teest'}, 200)
+    except Exception as e:
+
+        return make_response({'response': 'ERROR', 'description': str(e)}, 500)
 
 
 def put_biometric_datas_to_json(data):
