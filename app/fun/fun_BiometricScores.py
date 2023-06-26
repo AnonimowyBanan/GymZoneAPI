@@ -1,20 +1,21 @@
 import math
 
+
 class BiometricData:
 
     def __init__(
-                    self, 
-                    age: int, 
-                    height: float, 
-                    weight: float, 
-                    gender: str
-                 ):
-        
-        self._age                    = int(age)
-        self._height                 = float(height)
-        self._height_m               = float(float(height) / 100)
-        self._weight                 = float(weight)
-        self._gender                 = str(gender)
+            self,
+            age: int,
+            height: float,
+            weight: float,
+            gender: str
+    ):
+
+        self._age = int(age)
+        self._height = float(height)
+        self._height_m = float(float(height) / 100)
+        self._weight = float(weight)
+        self._gender = str(gender)
 
     """
     A function that calculate BMI (Body Mass Index) and return it.
@@ -26,9 +27,10 @@ class BiometricData:
     Returns:
         float: BMI score.
     """
+
     def calculate_BMI(self):
 
-        bmi = self._weight / (self._height_m**2)
+        bmi = self._weight / (self._height_m ** 2)
 
         self._bmi = bmi
 
@@ -45,6 +47,7 @@ class BiometricData:
         Returns:
             float: BMR score.
     """
+
     def calculate_BMR(self):
 
         if self._gender == 'Female':
@@ -55,7 +58,7 @@ class BiometricData:
         bmr = 10 * self._weight + 6.25 * self._height - 5 * self._age + x
 
         return round(bmr, 2)
-    
+
     """
         A function that calculate PBF (Percent Body Fat) and return it.
 
@@ -68,15 +71,16 @@ class BiometricData:
         Returns:
             float: PBF score.
     """
+
     def calculate_PBF(self):
 
         if self._gender == 'Female':
-            pbf = (0.25 * self._weight) + 0.7 
+            pbf = (0.25 * self._weight) + 0.7
         else:
             pbf = (0.15 * self._weight) + 0.7
 
         return round(pbf, 2)
-    
+
     """
         A function that calculate FFM (Fat-Free Mass) and return it.
 
@@ -88,20 +92,19 @@ class BiometricData:
         Returns:
             float: FFM score.
     """
+
     # def calculate_FFM(self):
 
     #     brm = BiometricData.calculate_BMR()
 
-        
     #     ffm = self._weight - (self._weight * )
 
     #     return round(ffm, 2)
 
-
     def calculate_fit_score(self):
 
         fitscore = 0
-        
+
         if self._height >= 180:
             fitscore = 15
         elif self._height >= 170:

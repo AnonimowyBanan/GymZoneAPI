@@ -1,5 +1,4 @@
-from app import app, create_database
+from app import app
 
 if __name__ == '__main__':
     app.run()
-    # create_database()
