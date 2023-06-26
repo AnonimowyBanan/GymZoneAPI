@@ -1,6 +1,5 @@
 from flask import jsonify, request, make_response
 from . import exercise
-from app.classes.Exercise_collection import Exercise_collection
 from app.models.Exercise import Exercise
 from app.extenctions import db
 from app.fun.api import token_required
@@ -88,6 +87,7 @@ def edit_exercise():
 
 
 @exercise.route('/add', methods=['POST'])
+@token_required
 def add_exercise():
     exercise_obj = Exercise()
 

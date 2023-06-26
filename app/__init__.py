@@ -26,10 +26,12 @@ def start_app():
     from app.routes import user as user_bp
     from app.routes import exercise as exercise_bp
     from app.routes import biometric_data as biometric_data_bp
+    from app.routes import auth as auth_bp
 
     app.register_blueprint(user_bp, url_prefix="/user")
     app.register_blueprint(exercise_bp, url_prefix="/exercise")
     app.register_blueprint(biometric_data_bp, url_prefix="/biometric-data")
+    app.register_blueprint(auth_bp, url_prefix="/auth")
 
     return app
 
