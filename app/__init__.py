@@ -23,9 +23,9 @@ def start_app():
 
     jwt = JWTManager(app)
 
-    from app.controllers import user as user_bp
-    from app.controllers import exercise as exercise_bp
-    from app.controllers import biometric_data as biometric_data_bp
+    from app.routes import user as user_bp
+    from app.routes import exercise as exercise_bp
+    from app.routes import biometric_data as biometric_data_bp
 
     app.register_blueprint(user_bp, url_prefix="/user")
     app.register_blueprint(exercise_bp, url_prefix="/exercise")

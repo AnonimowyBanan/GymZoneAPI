@@ -2,7 +2,7 @@ from flask import jsonify, request, make_response
 from . import biometric_data
 from app.classes.BiometricData_collection import BiometricData_collection
 from app.classes.BiometricScore_collection import BiometricScore_collection
-from app.classes.User_collection import User_collection
+from app.models.User import User
 from app.fun.fun_BiometricScores import BiometricData
 from app.extenctions import db
 
@@ -68,7 +68,7 @@ def edit_biometric_data():
     biometric_score_obj.set_id_biometric_data(int(request.form.get('biometric_data_ID')))
     edit_biometric_score = biometric_score_obj.get()
 
-    user_obj = User_collection()
+    user_obj = User()
 
     user_obj.set_id(int(request.form.get('user_ID')))
     gender = user_obj.get().gender
@@ -100,7 +100,7 @@ def edit_biometric_data():
 def add_biometric_data():
     biometric_data_obj = BiometricData_collection()
     biometric_score_obj = BiometricScore_collection()
-    user_obj = User_collection()
+    user_obj = User()
 
     user_obj.set_user_id(request.form.get('user_ID'))
     gender = user_obj.get().gender
