@@ -17,8 +17,8 @@ class Exercise(db.Model):
         self.name = None
         self.id = 0
 
-    def set_id(self, exercise_ID: int):
-        self.id = exercise_ID
+    def set_id(self, id: int):
+        self.id = id
 
     def set_id_muscle(self, muscle_id: int):
         self.id_muscle = muscle_id

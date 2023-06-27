@@ -3,7 +3,7 @@ from . import user
 from app.models.User import User
 from app.extenctions import db
 from flask_bcrypt import generate_password_hash, check_password_hash
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, create_access_token
 
 
 @user.route('/get-all', methods=['GET'])
@@ -39,14 +39,14 @@ def get_user_data():
     try:
         if user is None:
 
-            return make_response({'response': 'ERROR', 'description': 'User not found'}, 204)
+            return make_response({'response': 'WARNING', 'description': 'User not found'}, 204)
         else:
 
             return make_response(jsonify(put_user_data_to_json(user)), 200)
 
     except Exception as e:
 
-        return make_response({'error': str(e)}, 500)
+        return make_response({'response': 'ERROR', 'description': str(e)}, 500)
 
 
 @user.route('/delete', methods=['DELETE'])
@@ -60,7 +60,7 @@ def delete_user():
 
         if user_to_delete is None:
 
-            return make_response({'response': 'ERROR', 'description': 'User not found'}, 204)
+            return make_response({'response': 'WARNING', 'description': 'User not found'}, 204)
         else:
             db.session.delete(user_to_delete)
             db.session.commit()
@@ -69,7 +69,7 @@ def delete_user():
 
     except Exception as e:
 
-        return make_response({'error': str(e)}, 500)
+        return make_response({'response': 'ERROR', 'description': str(e)}, 500)
 
 
 @user.route('/edit', methods=['PUT', 'POST'])
@@ -81,7 +81,7 @@ def edit_user():
     user_to_edit = user_obj.get()
 
     if user_to_edit is None:
-        return make_response({'response': 'ERROR', 'description': 'User not found'}, 204)
+        return make_response({'response': 'WARNING', 'description': 'User not found'}, 204)
 
     user_to_edit.email = request.form.get('email')
     user_to_edit.login = request.form.get('login')
@@ -111,7 +111,7 @@ def add_user():
     user_obj.set_email(request.form.get('email'))
 
     if user_obj.check_if_email_exist():
-        return make_response({'response': 'ERROR', 'description': 'Email is already in use'}, 500)
+        return make_response({'response': 'WARNING', 'description': 'Email is already in use'}, 500)
     else:
         user_obj.set_login(request.form.get('login'))
         user_obj.set_password(request.form.get('password'))
@@ -134,7 +134,7 @@ def add_user():
         return make_response({'response': 'ERROR', 'description': str(e)}, 500)
 
 
-@user.route('/check-login', methods=["POST"])
+@user.route('/login', methods=["POST"])
 def check_login():
     user_obj = User()
     user_obj.set_email(request.form.get('email'))
@@ -144,11 +144,12 @@ def check_login():
     if user_to_login is not None:
         is_password_valid = check_password_hash(user_to_login.password, request.form.get('password'))
         if is_password_valid:
-            return make_response({'response': 'OK', 'user': put_user_data_to_json(user_to_login)}, 200)
+            access_token = create_access_token(identity=request.form.get('email'))
+            return make_response({'response': 'OK', 'api-token': access_token, 'user': put_user_data_to_json(user_to_login)}, 200)
         else:
-            return make_response({'response': 'ERROR', 'description': 'Wrong password'}, 204)
+            return make_response({'response': 'WARNING', 'description': 'Wrong password'}, 204)
     else:
-        return make_response({'response': 'ERROR', 'description': 'User not found'}, 204)
+        return make_response({'response': 'WARNING', 'description': 'User not found'}, 204)
 
 
 def put_user_data_to_json(data):
