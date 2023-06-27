@@ -1,5 +1,5 @@
 from app.extenctions import db
-import math
+from app.models.biometric_data import BiometricData
 
 
 class BiometricScore(db.Model):

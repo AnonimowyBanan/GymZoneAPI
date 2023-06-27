@@ -1,4 +1,5 @@
 from app.extenctions import db
+from app.models.user import User
 
 
 class Training(db.Model):
