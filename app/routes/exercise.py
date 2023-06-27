@@ -1,6 +1,6 @@
 from flask import jsonify, request, make_response
 from . import exercise
-from app.models.Exercise import Exercise
+from app.models.exercise import Exercise
 from app.extenctions import db
 from flask_jwt_extended import jwt_required
 

@@ -1,6 +1,6 @@
 from flask import jsonify, request, make_response
 from app.extenctions import db
-from app.models.BiometricData import BiometricData
+from app.models.biometric_data import BiometricData
 from flask_jwt_extended import jwt_required
 from . import biometric_data
 

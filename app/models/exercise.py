@@ -1,5 +1,5 @@
 from app.extenctions import db
-from app.models import BodyPart
+from app.models import body_part
 
 
 class Exercise(db.Model):

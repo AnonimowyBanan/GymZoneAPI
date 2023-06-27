@@ -1,7 +1,7 @@
 from app.extenctions import db
 from flask import jsonify, request, make_response
 from . import auth
-from app.models.User import User
+from app.models.user import User
 from flask_bcrypt import check_password_hash
 from flask_jwt_extended import create_access_token
 

@@ -1,6 +1,6 @@
 from flask import jsonify, request, make_response
 from . import user
-from app.models.User import User
+from app.models.user import User
 from app.extenctions import db
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_jwt_extended import jwt_required, create_access_token
