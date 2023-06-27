@@ -10,7 +10,7 @@ from flask_jwt_extended import jwt_required, create_access_token
 @jwt_required()
 def get_all_users():
     result = []
-    
+
     try:
         user_obj = User()
         users = user_obj.all()
@@ -145,7 +145,8 @@ def check_login():
         is_password_valid = check_password_hash(user_to_login.password, request.form.get('password'))
         if is_password_valid:
             access_token = create_access_token(identity=request.form.get('email'))
-            return make_response({'response': 'OK', 'api-token': access_token, 'user': put_user_data_to_json(user_to_login)}, 200)
+            return make_response(
+                {'response': 'OK', 'api-token': access_token, 'user': put_user_data_to_json(user_to_login)}, 200)
         else:
             return make_response({'response': 'WARNING', 'description': 'Wrong password'}, 204)
     else:

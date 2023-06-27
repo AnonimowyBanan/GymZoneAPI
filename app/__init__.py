@@ -1,9 +1,10 @@
-from flask import Flask, request, redirect
+from flask import Flask
 from dotenv import load_dotenv
 from app.extenctions import db
 from flask_restful import Api
 import os
 from flask_jwt_extended import JWTManager
+from app.database import database_initialization
 
 
 def start_app():
@@ -26,11 +27,16 @@ def start_app():
     from app.routes import exercise as exercise_bp
     from app.routes import biometric_data as biometric_data_bp
     from app.routes import auth as auth_bp
+    from app.routes import test as test_bp
 
     app.register_blueprint(user_bp, url_prefix="/user")
     app.register_blueprint(exercise_bp, url_prefix="/exercise")
     app.register_blueprint(biometric_data_bp, url_prefix="/biometric-data")
     app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(test_bp, url_prefix="/test")
+
+    with app.app_context():
+        database_initialization()
 
     return app
 

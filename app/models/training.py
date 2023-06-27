@@ -13,7 +13,6 @@ class Training(db.Model):
     create_timestamp = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
 
     def __init__(self):
-        self.id_user = 0
         self.training_name = None
         self.time = None
         self.public = None

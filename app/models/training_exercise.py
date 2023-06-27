@@ -15,7 +15,6 @@ class TrainingExercise(db.Model):
     load = db.Column(db.Double, nullable=True)
 
     def __init__(self):
-        self.id = 0
         self.id_training = None
         self.id_exercise = None
         self.sets = None

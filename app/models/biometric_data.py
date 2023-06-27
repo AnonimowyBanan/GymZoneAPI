@@ -1,4 +1,5 @@
 from app.extenctions import db
+from sqlalchemy.orm import relationship
 from app.models.user import User
 
 
@@ -12,12 +13,8 @@ class BiometricData(db.Model):
     weight = db.Column(db.Double, nullable=False)
     timestamp = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
 
-    user = db.relationship('User', backref='BiometricData', cascade="all,delete", lazy=True)
-
-    # biometric_data = db.relationship('BiometricScore', backref='BiometricData', cascade="all,delete", lazy=True)
 
     def __init__(self):
-        self.id = 0
         self.id_user = None
         self.age = None
         self.height = None

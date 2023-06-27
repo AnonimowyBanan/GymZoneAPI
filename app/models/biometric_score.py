@@ -14,7 +14,6 @@ class BiometricScore(db.Model):
     fit_score = db.Column(db.Integer, nullable=False)
 
     def __init__(self, gender: str, height: float, weight: float):
-        self.id = 0
         self.id_biometric_data = None
         self.BMI = None
         self.BMR = None

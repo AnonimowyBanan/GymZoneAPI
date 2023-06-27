@@ -17,6 +17,8 @@ class User(db.Model):
     birthday = db.Column(db.Date, nullable=True)
     register_timestamp = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
 
+    biometric_data = db.relationship('BiometricData', backref='user', cascade="all,delete", lazy=True)
+
     def __init__(self):
         self.gender = None
         self.last_name = None
@@ -24,7 +26,6 @@ class User(db.Model):
         self.password = None
         self.login = None
         self.email = None
-        self.id = 0
 
     def set_id(self, id: int):
         self.id = id
