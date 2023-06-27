@@ -1,14 +1,12 @@
 from flask import jsonify, request, make_response
-from app.models.BiometricScore import BiometricScore
 from app.extenctions import db
-from app.utils import token_required
 from app.models.BiometricData import BiometricData
-from app.models.User import User
+from flask_jwt_extended import jwt_required
 from . import biometric_data
 
 
 @biometric_data.route('/get-all', methods=['GET'])
-@token_required
+@jwt_required()
 def get_all_biometric_datas():
     biometric_data_obj = BiometricData()
     biometric_datas = biometric_data_obj.all()
@@ -25,7 +23,7 @@ def get_all_biometric_datas():
 
 
 @biometric_data.route('/get', methods=['GET'])
-@token_required
+@jwt_required()
 def get_biometric_data():
     biometric_data_obj = BiometricData()
 
@@ -39,7 +37,7 @@ def get_biometric_data():
 
 
 @biometric_data.route('/delete', methods=['DELETE'])
-@token_required
+@jwt_required()
 def delete_biometric_data():
     biometric_data_obj = BiometricData()
 
@@ -62,7 +60,7 @@ def delete_biometric_data():
 
 
 @biometric_data.route('/edit', methods=['PUT', 'POST'])
-@token_required
+@jwt_required()
 def edit_biometric_data():
     biometric_data_obj = BiometricData()
     biometric_data_obj.set_id(int(request.form.get('biometric_data_ID')))
@@ -87,7 +85,7 @@ def edit_biometric_data():
 
 
 @biometric_data.route('/add', methods=['POST'])
-@token_required
+@jwt_required()
 def add_biometric_data():
     biometric_data_object = BiometricData()
     user_id = request.form.get('user_ID')

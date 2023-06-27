@@ -8,12 +8,15 @@ from flask_jwt_extended import create_access_token
 
 @auth.route('/login', methods=['POST'])
 def login():
+
     user_obj = User()
 
     email = request.form.get('email')
     password = request.form.get('password')
     user_obj.set_email(email)
     user = user_obj.get_user_by_email()
+
+
 
     if user is None:
         return make_response({'response': 'ERROR', 'description': 'User not found'}, 204)

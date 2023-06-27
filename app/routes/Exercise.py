@@ -2,11 +2,11 @@ from flask import jsonify, request, make_response
 from . import exercise
 from app.models.Exercise import Exercise
 from app.extenctions import db
-from app.utils import token_required
+from flask_jwt_extended import jwt_required
 
 
 @exercise.route('/get-all', methods=['GET'])
-@token_required
+@jwt_required()
 def get_all_exercises():
     exercise_obj = Exercise()
 
@@ -23,7 +23,7 @@ def get_all_exercises():
 
 
 @exercise.route('/get', methods=['GET'])
-@token_required
+@jwt_required()
 def get_exercise_data():
     exercise_obj = Exercise()
 
@@ -37,7 +37,7 @@ def get_exercise_data():
 
 
 @exercise.route('/delete', methods=['DELETE'])
-@token_required
+@jwt_required()
 def delete_exercise():
     exercise_obj = Exercise()
 
@@ -60,7 +60,7 @@ def delete_exercise():
 
 
 @exercise.route('/edit', methods=['PUT', 'POST'])
-@token_required
+@jwt_required()
 def edit_exercise():
     exercise_obj = Exercise()
 
@@ -87,7 +87,7 @@ def edit_exercise():
 
 
 @exercise.route('/add', methods=['POST'])
-@token_required
+@jwt_required()
 def add_exercise():
     exercise_obj = Exercise()
 

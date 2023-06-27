@@ -12,7 +12,7 @@ class BiometricData(db.Model):
     timestamp = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
 
     user = db.relationship('User', backref='BiometricData', cascade="all,delete", lazy=True)
-    biometric_data = db.relationship('BiometricScore', backref='BiometricData', cascade="all,delete", lazy=True)
+    # biometric_data = db.relationship('BiometricScore', backref='BiometricData', cascade="all,delete", lazy=True)
 
     def __init__(self):
         self.id = 0

@@ -22,8 +22,6 @@ def start_app():
     jwt = JWTManager(app)
     api = Api(app)
 
-
-
     from app.routes import user as user_bp
     from app.routes import exercise as exercise_bp
     from app.routes import biometric_data as biometric_data_bp
@@ -35,5 +33,6 @@ def start_app():
     app.register_blueprint(auth_bp, url_prefix="/auth")
 
     return app
+
 
 app = start_app()

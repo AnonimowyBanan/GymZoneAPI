@@ -3,15 +3,14 @@ from . import user
 from app.models.User import User
 from app.extenctions import db
 from flask_bcrypt import generate_password_hash, check_password_hash
-from app.utils import token_required
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 
 @user.route('/get-all', methods=['GET'])
 @jwt_required()
 def get_all_users():
     result = []
-    print(get_jwt_identity())
+    
     try:
         user_obj = User()
         users = user_obj.all()
@@ -30,7 +29,7 @@ def get_all_users():
 
 
 @user.route('/get', methods=['GET'])
-@token_required
+@jwt_required()
 def get_user_data():
     user_obj = User()
 
@@ -51,7 +50,7 @@ def get_user_data():
 
 
 @user.route('/delete', methods=['DELETE'])
-@token_required
+@jwt_required()
 def delete_user():
     user_obj = User()
 
@@ -74,7 +73,7 @@ def delete_user():
 
 
 @user.route('/edit', methods=['PUT', 'POST'])
-@token_required
+@jwt_required()
 def edit_user():
     user_obj = User()
     user_obj.set_id(int(request.form.get('user_ID')))
