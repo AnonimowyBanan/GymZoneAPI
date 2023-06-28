@@ -1,0 +1,809 @@
+openapi: 3.0.0
+info:
+  title: GymZoneAPI
+  description: API for GymZone application
+  version: 1.0.0
+tags:
+  - name: exercise
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: user
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: biometric
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+paths:
+  /exercise/get-all:
+    get:
+      tags:
+        - exercise
+      summary: Get all exercises
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    exercise:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        id_muscle:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                    muscle:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        picture:
+                          type: string
+  /exercise/get:
+    get:
+      tags:
+        - exercise
+      summary: Get exercise by ID
+      parameters:
+        - name: exercise_ID
+          in: query
+          description: Exercise ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  exercise:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      id_muscle:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+                  muscle:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      picture:
+                        type: string
+  /exercise/delete:
+    delete:
+      tags:
+        - exercise
+      summary: Delete exercise
+      parameters:
+        - name: exercise_ID
+          in: query
+          description: Exercise ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+  /exercise/edit:
+    put:
+      tags:
+        - exercise
+      summary: Edit exercise
+      parameters:
+        - name: exercise_ID
+          in: query
+          description: Exercise ID
+          required: true
+          schema:
+            type: string
+        - name: id_muscle
+          in: query
+          description: Muscle ID
+          required: true
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: Exercise name
+          required: true
+          schema:
+            type: string
+        - name: description
+          in: query
+          description: Exercise description
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  exercise:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      id_muscle:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+  /exercise/add:
+    post:
+      tags:
+        - exercise
+      summary: Add exercise
+      parameters:
+        - name: id_muscle
+          in: query
+          description: Muscle ID
+          required: true
+          schema:
+            type: integer
+        - name: name
+          in: query
+          description: Exercise name
+          required: true
+          schema:
+            type: string
+        - name: description
+          in: query
+          description: Exercise description
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  exercise:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      id_muscle:
+                        type: integer
+                      name:
+                        type: string
+                      description:
+                        type: string
+  /user/get-all:
+    get:
+      tags:
+          - user
+      summary: Get all users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    email:
+                      type: string
+                    login:
+                      type: string
+                    password:
+                      type: string
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    sex:
+                      type: string
+                    user_picture_file_name:
+                      type: string
+                    user_description:
+                      type: string
+                    birthday:
+                      type: string
+                    register_timestamp:
+                      type: string
+                      format: date-time
+        '204':
+          description: No users found
+        '500':
+          description: Internal server error
+  /user/get:
+    get:
+      tags:
+            - user
+      summary: Get user data
+      parameters:
+        - name: user_ID
+          in: query
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  login:
+                    type: string
+                  password:
+                    type: string
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  sex:
+                    type: string
+                  user_picture_file_name:
+                    type: string
+                  user_description:
+                    type: string
+                  birthday:
+                    type: string
+                  register_timestamp:
+                    type: string
+                    format: date-time
+        '204':
+          description: User not found
+        '500':
+          description: Internal server error
+  /user/delete:
+    delete:
+      tags:
+          - user
+      summary: Delete user
+      parameters:
+        - name: user_ID
+          in: query
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        '204':
+          description: User not found
+        '500':
+          description: Internal server error
+  /user/add:
+    post:
+      tags:
+          - user
+      summary: Add user
+      parameters:
+        - name: email
+          in: query
+          description: User email
+          required: true
+          schema:
+            type: string
+        - name: login
+          in: query
+          description: User login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: User password
+          required: true
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: User first name
+          required: true
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: User last name
+          required: true
+          schema:
+            type: string
+        - name: sex
+          in: query
+          description: User sex
+          required: true
+          schema:
+            type: string
+        - name: user_picture_file_name
+          in: query
+          description: User picture file name
+          required: true
+          schema:
+            type: string
+        - name: user_description
+          in: query
+          description: User description
+          required: true
+          schema:
+            type: string
+        - name: birthday
+          in: query
+          description: User birthday
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+        '500':
+          description: Internal server error
+  /user/edit:
+    put:
+      tags:
+          - user
+      summary: Edit user
+      parameters:
+        - name: user_ID
+          in: query
+          description: User ID
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: User email
+          required: true
+          schema:
+            type: string
+        - name: login
+          in: query
+          description: User login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: User password
+          required: true
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: User first name
+          required: true
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: User last name
+          required: true
+          schema:
+            type: string
+        - name: sex
+          in: query
+          description: User sex
+          required: true
+          schema:
+            type: string
+        - name: user_picture_file_name
+          in: query
+          description: User picture file name
+          required: true
+          schema:
+            type: string
+        - name: user_description
+          in: query
+          description: User description
+          required: true
+          schema:
+            type: string
+        - name: birthday
+          in: query
+          description: User birthday
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      login:
+                        type: string
+                      password:
+                        type: string
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      sex:
+                        type: string
+                      user_picture_file_name:
+                        type: string
+                      user_description:
+                        type: string
+                      birthday:
+                        type: string
+                      register_timestamp:
+                        type: string
+                        format: date-time
+        '204':
+          description: User not found
+        '500':
+          description: Internal server error
+  /biometric-data/get-all:
+    get:
+      tags:
+          - biometric
+      summary: Get all users
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                      id:
+                        type: integer
+                      id_user:
+                        type: string
+                      age:
+                        type: string
+                      height:
+                        type: string
+                      weight:
+                        type: string
+                      timestamp:
+                        type: string
+        '204':
+          description: No users found
+        '500':
+          description: Internal server error
+  /biometric-data/get:
+    get:
+      tags:
+            - biometric
+      summary: Get user data
+      parameters:
+        - name: user_ID
+          in: query
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  login:
+                    type: string
+                  password:
+                    type: string
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  sex:
+                    type: string
+                  user_picture_file_name:
+                    type: string
+                  user_description:
+                    type: string
+                  birthday:
+                    type: string
+                  register_timestamp:
+                    type: string
+                    format: date-time
+        '204':
+          description: User not found
+        '500':
+          description: Internal server error
+  /biometric-data/delete:
+    delete:
+      tags:
+          - biometric
+      summary: Delete user
+      parameters:
+        - name: user_ID
+          in: query
+          description: User ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      id_user:
+                        type: string
+                      age:
+                        type: string
+                      height:
+                        type: string
+                      weight:
+                        type: string
+                      timestamp:
+                        type: string
+        '204':
+          description: User not found
+        '500':
+          description: Internal server error
+  /biometric-data/add:
+    post:
+      tags:
+          - biometric
+      summary: Add user
+      parameters:
+        - name: email
+          in: query
+          description: User email
+          required: true
+          schema:
+            type: string
+        - name: login
+          in: query
+          description: User login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: User password
+          required: true
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: User first name
+          required: true
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: User last name
+          required: true
+          schema:
+            type: string
+        - name: sex
+          in: query
+          description: User sex
+          required: true
+          schema:
+            type: string
+        - name: user_picture_file_name
+          in: query
+          description: User picture file name
+          required: true
+          schema:
+            type: string
+        - name: user_description
+          in: query
+          description: User description
+          required: true
+          schema:
+            type: string
+        - name: birthday
+          in: query
+          description: User birthday
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      id_user:
+                        type: string
+                      age:
+                        type: string
+                      height:
+                        type: string
+                      weight:
+                        type: string
+                      timestamp:
+                        type: string
+        '500':
+          description: Internal server error
+  /biometric-data/edit:
+    put:
+      tags:
+          - biometric
+      summary: Edit user
+      parameters:
+        - name: user_ID
+          in: query
+          description: User ID
+          required: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: User email
+          required: true
+          schema:
+            type: string
+        - name: login
+          in: query
+          description: User login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: User password
+          required: true
+          schema:
+            type: string
+        - name: first_name
+          in: query
+          description: User first name
+          required: true
+          schema:
+            type: string
+        - name: last_name
+          in: query
+          description: User last name
+          required: true
+          schema:
+            type: string
+        - name: sex
+          in: query
+          description: User sex
+          required: true
+          schema:
+            type: string
+        - name: user_picture_file_name
+          in: query
+          description: User picture file name
+          required: true
+          schema:
+            type: string
+        - name: user_description
+          in: query
+          description: User description
+          required: true
+          schema:
+            type: string
+        - name: birthday
+          in: query
+          description: User birthday
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      id_user:
+                        type: string
+                      age:
+                        type: string
+                      height:
+                        type: string
+                      weight:
+                        type: string
+                      timestamp:
+                        type: string
+        '204':
+          description: User not found
+        '500':
+          description: Internal server error
