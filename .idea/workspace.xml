@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="db11a432-9162-43c7-9530-28b2fe4e5712" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database_init.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/exercise.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/exercise.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Biometric_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Biometric_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/Exercise.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/Exercise.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/User.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2Rp5mtHLCiHXNE36M1rlgg0XmGf" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="db11a432-9162-43c7-9530-28b2fe4e5712" name="Changes" comment="" />
+      <created>1687934344637</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1687934344637</updated>
+    </task>
+    <servers />
+  </component>
+</project>
