@@ -125,9 +125,12 @@ def add_user():
     try:
 
         db.session.add(user_obj)
+        db.session.flush()
+        new_user = user_obj
         db.session.commit()
 
-        return make_response({'response': 'OK'}, 200)
+        return make_response({'response': 'OK', 'user': put_user_data_to_json(new_user)}, 200)
+
 
     except Exception as e:
 

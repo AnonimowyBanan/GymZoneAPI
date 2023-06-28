@@ -4,7 +4,7 @@ from app.extenctions import db
 from flask_restful import Api
 import os
 from flask_jwt_extended import JWTManager
-from app.database import database_initialization
+from app.database_init import database_initialization
 
 
 def start_app():
@@ -35,8 +35,8 @@ def start_app():
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(test_bp, url_prefix="/test")
 
-    with app.app_context():
-        database_initialization()
+    # with app.app_context():
+    #     database_initialization()
 
     return app
 

@@ -66,8 +66,6 @@ def edit_biometric_data():
     biometric_data_obj.set_id(int(request.form.get('biometric_data_ID')))
     biometric_data = biometric_data_obj.get()
 
-    print(biometric_data)
-
     if biometric_data is None:
         return make_response({'response': 'ERROR', 'description': 'Biometric data not found'}, 204)
 
@@ -101,9 +99,11 @@ def add_biometric_data():
     db.session.add(biometric_data_object)
 
     try:
+        db.session.flush()
+        new_biometric_data_object = biometric_data_object
         db.session.commit()
 
-        return make_response({'response': 'OK', 'biometric_data': 'teest'}, 200)
+        return make_response({'response': 'OK', 'biometric_data': put_biometric_datas_to_json(new_biometric_data_object)}, 200)
     except Exception as e:
 
         return make_response({'response': 'ERROR', 'description': str(e)}, 500)

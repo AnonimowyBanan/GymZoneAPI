@@ -64,7 +64,7 @@ def delete_exercise():
 def edit_exercise():
     exercise_obj = Exercise()
 
-    exercise_obj.set_exercise_id(int(request.form.get('exercise_ID')))
+    exercise_obj.set_id(int(request.form.get('exercise_ID')))
     exercise_to_edit = exercise_obj.get()
 
     if exercise_to_edit is None:
@@ -115,10 +115,10 @@ def put_exercise_data_to_json(data):
             'name': data.name,
             'description': data.description
         },
-        'muscle': {
-            'id': data.body_part_id_muscle.id,
-            'name': data.body_part_id_muscle.name,
-            'picture': data.body_part_id_muscle.picture
+        'body_part': {
+            'id': data.bodyPart.id,
+            'name': data.bodyPart.name,
+            'picture': data.bodyPart.picture
         }
     }
 

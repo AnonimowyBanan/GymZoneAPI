@@ -27,7 +27,7 @@ class Exercise(db.Model):
         self.description = description
 
     def get(self):
-        exercise = Exercise.query.filter_by(id=self.exercise_ID).first()
+        exercise = Exercise.query.filter_by(id=self.id).first()
 
         return exercise if exercise else None
 
